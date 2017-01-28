@@ -37,14 +37,13 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
     end
     
     temp_tableau = inv(A_B)*A_N;
-    temp_bottom = c_B'*inv(A_B)*A_N-c_N';
+    bottomleft = c_B'*inv(A_B)*A_N-c_N';
     index = 1:s(2);
     index([basicvars]) = [];
     j = 1;
     for i = index
-        i
         tableau(1:end-1, i) = temp_tableau(:, j);
-        tableau(end, i) = temp_bottom(j);
+        tableau(end, i) = bottomleft(j);
         j = j + 1;
     end
     tableau(1:end-1, end) = inv(A_B)*b;
@@ -53,7 +52,7 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
 %    tableau = [inv(A_B)*A_N eye(length(basicvars)) inv(A_B)*b; ...
 %        c_B'*inv(A_B)*A_N-c_N' zeros(1, length(basicvars)), c_B'*inv(A_B)*b]
 
-    if ((c_B'*inv(A_B)*A_N-c_N') >= 0)
+    if (bottomleft >= 0)
         optimal = 1;
     else
         optimal = 0;

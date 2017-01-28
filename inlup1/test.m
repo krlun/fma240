@@ -6,3 +6,13 @@ basicvars = [3 4 5];
 [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars);
 disp('Problem 2a');
 tableau
+
+basicvars=[3 1 5];
+[tableau,x,basic,feasible,optimal]=checkbasic1(A,b,c,basicvars);
+disp('Problem 2b');
+tableau
+
+basicvars=[3 1 2];
+[tableau,x,basic,feasible,optimal]=checkbasic1(A,b,c,basicvars);
+disp('Problem 2c');
+tableau
