@@ -17,22 +17,30 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
 %                       max z = c'*x
 %                       subject to A*x = b, x >= 0
 
-A_B = A(:, [basicvars]);
-A_N = A;
-A_N(:, [basicvars]) = [];
-c_B = c([basicvars]);
-c_N = c;
-c_N([basicvars]) = [];
+    A_B = A(:, [basicvars]);
+    A_N = A;
+    A_N(:, [basicvars]) = [];
+    c_B = c([basicvars]);
+    c_N = c;
+    c_N([basicvars]) = [];
+    inv(A_B)*b
 
-c_B'*inv(A_B)*A_N-c_N'
-c_B'*inv(A_B)*b
+%    c_B'*inv(A_B)*A_N-c_N'
+%    c_B'*inv(A_B)*b
 
-tableau = inv(A_B)*A_N
-inv(A_B)*b
+%    tableau = inv(A_B)*A_N;
+    tableau = [inv(A_B)*A_N eye(length(basicvars)) inv(A_B)*b; ...
+        c_B'*inv(A_B)*A_N-c_N' zeros(1, length(basicvars)), c_B'*inv(A_B)*b]
 
-x = 0;
-basic = 0;
-feasible = 0;
-optimal = 0;
+    if ((c_B'*inv(A_B)*A_N-c_N') >= 0)
+        optimal = 1;
+    else
+        optimal = 0;
+    end
+    
+    x = 0;
+    basic = 0;
+    feasible = 0;
+    
 
 end
