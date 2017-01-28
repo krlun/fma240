@@ -52,8 +52,19 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
         optimal = 0;
     end
     
-    x = 0;
+    x = zeros(s(2), 1);
+    x_B = inv(A_B)*b;
+    
+    for i = 1:length(basicvars)
+        x(basicvars(i)) = x_B(i);
+    end
+    
+    if (x >= 0)
+        feasible = 1;
+    else
+        feasible = 0;
+    end
+    
     basic = 0;
-    feasible = 0;
 
 end
