@@ -6,7 +6,7 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
 %        basicvars - list of m indices between 1 and n.
 % OUTPUT
 %        tableau  - the (m+1) x (n+1) matrix representing the simplex
-%                   tableau (skip the column correspondig to the objective
+%                   tableau (skip the column corresponding to the objective
 %                   function z)
 %        x        - nx1 matrix. The basic solution corresponding to basic
 %                   variables basicvars.
@@ -23,12 +23,6 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
     c_B = c([basicvars]);
     c_N = c;
     c_N([basicvars]) = [];
-%    inv(A_B)*b
-
-%    c_B'*inv(A_B)*A_N-c_N'
-%    c_B'*inv(A_B)*b
-
-%    tableau = inv(A_B)*A_N;
 
     s = size(A);
     tableau = zeros(s(1)+1, s(2)+1);
