@@ -65,6 +65,10 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
         feasible = 0;
     end
     
-    basic = 0;
+    if (A*x == b)
+        basic = 1;
+    else
+        basic = 0;
+    end
 
 end
