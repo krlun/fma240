@@ -17,6 +17,9 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
 %                       max z = c'*x
 %                       subject to A*x = b, x >= 0
 
+    % Set up default return values.
+    [x, basic, optimal, feasible] = deal(0);
+
     s = size(A);
     nonbasicvars = 1:s(2);
     nonbasicvars([basicvars]) = [];
@@ -26,7 +29,7 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
     c_N = c([nonbasicvars]);
     ABAN = A_B\A_N;
     ABb = A_B\b;
-    
+
 %    tableau = [inv(A_B)*A_N eye(length(basicvars)) inv(A_B)*b; ...
 %        c_B'*inv(A_B)*A_N-c_N' zeros(1, length(basicvars)), c_B'*inv(A_B)*b]
 
@@ -34,27 +37,18 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
     tableau(1:end-1, basicvars) = eye(s(1));
     tableau(:, nonbasicvars) = [ABAN; c_B'*ABAN-c_N'];
     tableau(:, end) = [ABb; c_B'*ABb];
-    
+
     x = zeros(s(2), 1);
     x(basicvars) = ABb;
-    
+
     if (all(x >= 0))
         feasible = 1;
-    else
-        feasible = 0;
-    end
-    
+
     if (all(A*x == b))
         basic = 1;
-    else
-        basic = 0;
-    end
-    
+
     if ((all(tableau(end, basicvars)) == 0) & ...
             (all(tableau(end, nonbasicvars) >= 0)) & feasible)
         optimal = 1;
-    else
-        optimal = 0;
-    end
 
 end
