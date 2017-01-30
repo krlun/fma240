@@ -45,13 +45,6 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
 
 %    tableau = [inv(A_B)*A_N eye(length(basicvars)) inv(A_B)*b; ...
 %        c_B'*inv(A_B)*A_N-c_N' zeros(1, length(basicvars)), c_B'*inv(A_B)*b]
-
-    bottom = tableau(end, 1:end-1);
-    if ((all(bottom(basicvars)) == 0) & (all(bottom(nonbasicvars) >= 0)))
-        optimal = 1;
-    else
-        optimal = 0;
-    end
     
     x = zeros(s(2), 1);
     x_B = inv(A_B)*b;
@@ -70,6 +63,13 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
         basic = 1;
     else
         basic = 0;
+    end
+    
+    bottom = tableau(end, 1:end-1);
+    if ((all(bottom(basicvars)) == 0) & (all(bottom(nonbasicvars) >= 0)) & feasible)
+        optimal = 1;
+    else
+        optimal = 0;
     end
 
 end
