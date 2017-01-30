@@ -20,48 +20,23 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
     s = size(A);
     nonbasicvars = 1:s(2);
     nonbasicvars([basicvars]) = [];
-    
     A_B = A(:, [basicvars]);
     A_N = A(:, [nonbasicvars]);
-    
     c_B = c([basicvars]);
     c_N = c([nonbasicvars]);
     ABAN = A_B\A_N;
     ABb = A_B\b;
+    
+%    tableau = [inv(A_B)*A_N eye(length(basicvars)) inv(A_B)*b; ...
+%        c_B'*inv(A_B)*A_N-c_N' zeros(1, length(basicvars)), c_B'*inv(A_B)*b]
 
     tableau = zeros(s(1)+1, s(2)+1);
     tableau(1:end-1, basicvars) = eye(s(1));
-    
-%    for i = 1:length(basicvars)
-%        tableau(i, basicvars(i)) = 1;
-%    end
-
     tableau(:, nonbasicvars) = [ABAN; c_B'*ABAN-c_N'];
-    
-
-    
-%    bottomleft = c_B'*ABAN-c_N';
-    
-%    j = 1;
-%    for i = nonbasicvars
-%        tableau(1:end-1, i) = ABAN(:, j);
-%        tableau(end, i) = bottomleft(j);
-%        j = j + 1;
-%    end
     tableau(:, end) = [ABb; c_B'*ABb];
-%    tableau(end, end) = c_B'*ABb;
-
-%    tableau = [inv(A_B)*A_N eye(length(basicvars)) inv(A_B)*b; ...
-%        c_B'*inv(A_B)*A_N-c_N' zeros(1, length(basicvars)), c_B'*inv(A_B)*b]
     
     x = zeros(s(2), 1);
     x(basicvars) = ABb;
-    
-%    x_B = inv(A_B)*b;
-    
-%    for i = 1:length(basicvars)
-%        x(basicvars(i)) = x_B(i);
-%    end
     
     if (all(x >= 0))
         feasible = 1;
@@ -75,10 +50,8 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
         basic = 0;
     end
     
-%    bottom = tableau(end, 1:end-1);
-    
-    if ((all(tableau(end, basicvars)) == 0) & (all(tableau(end, nonbasicvars) >= 0)) & feasible)
-%    if ((all(bottom(basicvars)) == 0) & (all(bottom(nonbasicvars) >= 0)) & feasible)
+    if ((all(tableau(end, basicvars)) == 0) & ...
+            (all(tableau(end, nonbasicvars) >= 0)) & feasible)
         optimal = 1;
     else
         optimal = 0;
