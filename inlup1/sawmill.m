@@ -3,21 +3,19 @@
 %b = [8; 15];
 %c = [120; 100; 0; 0];
 %basicvars = [3 4];
-optimal = 0;
+%disp('Sawmill');
 
-A = [1 -1 -1 0 1 0 0; -2 5 -3 -3 0 1 0; 2 -5 0 3 0 0 1];
-b = [2; 10; 5];
-c = [2; 3; 1; 1; 0; 0; 0];
-basicvars = [5 6 7];
+%A = [1 2 2 1 1 0 1 0 0; 1 2 1 1 2 1 0 1 0; 3 6 2 1 3 0 0 0 1];
+b = [12; 18; 24];
+%c = [0; 0; 0; 0; 0; 0; -1; -1; -1];
+
+A = [1 2 2 1 1 0; 1 2 1 1 2 1; 3 6 2 1 3 0 ];
+c = [1; -2; -3; -1; -1; 2];
+
+basicvars = [3 6 1];
 [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars);
-disp('Sawmill');
-tableau
 
-
-
-g = 0; %sl?ng
-while (~optimal)% && g < 10)
-    g = g + 1; %sl?ng
+while (~optimal)
     s = size(tableau);
     pivot = zeros(1, 2);
     % det h?r ger Bland's regel 1)
@@ -27,8 +25,7 @@ while (~optimal)% && g < 10)
             break;
         end
     end
-    
-    
+
 %    [Y, pivot(2)] = min(tableau(end, 1:end-1)); %ifall man vill k?ra utan
 %    Bland's regel
 
@@ -41,7 +38,7 @@ while (~optimal)% && g < 10)
     end
 %    [Y, pivot(1)] = min(tableau(1:end-1, end)./tableau(1:end-1, pivot(2)));
     [Y, pivot(1)] = min(temp_pivot_1); % det h?r ger 2) av Bland's regel, min v?ljer f?rsta elementet
-    if (tableau(1:end-1, pivot(2) <= 0))
+    if (all(tableau(1:end-1, pivot(2)) <= 0))
         disp('No finite optimum exists.')
         break;
     end
@@ -68,5 +65,4 @@ while (~optimal)% && g < 10)
         end
     end
     [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars);
-    tableau
 end
