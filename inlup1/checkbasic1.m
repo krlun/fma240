@@ -43,12 +43,15 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
 
     if (all(x >= 0))
         feasible = 1;
+    end
 
     if (all(A*x == b))
         basic = 1;
+    end
 
     if ((all(tableau(end, basicvars)) == 0) & ...
             (all(tableau(end, nonbasicvars) >= 0)) & feasible)
         optimal = 1;
+    end
 
 end
