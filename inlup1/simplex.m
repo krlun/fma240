@@ -5,14 +5,9 @@
 %basicvars = [3 4];
 %disp('Sawmill');
 
-%A = [1 2 2 1 1 0 1 0 0; 1 2 1 1 2 1 0 1 0; 3 6 2 1 3 0 0 0 1];
-b = [12; 18; 24];
-%c = [0; 0; 0; 0; 0; 0; -1; -1; -1];
-%basicvars = [7 8 9];
+function [tableau, x, basic, feasible, optimal] = simplex(A, b, c, basicvars);
 
-A = [1 2 2 1 1 0; 1 2 1 1 2 1; 3 6 2 1 3 0 ];
-c = [1; -2; -3; -1; -1; 2];
-basicvars = [3 6 2];
+%basicvars = [3 6 1];
 [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars);
 
 while (~optimal)
@@ -26,7 +21,7 @@ while (~optimal)
         end
     end
 
-   [Y, pivot(2)] = min(tableau(end, 1:end-1)); %ifall man vill k?ra utan
+    [Y, pivot(2)] = min(tableau(end, 1:end-1)); %ifall man vill k?ra utan
 %    Bland's regel
 
 %   det h?r ?r verkligen inte vackert...
@@ -66,8 +61,3 @@ while (~optimal)
     end
     [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars);
 end
-tableau 
-x
-basic 
-feasible 
-optimal

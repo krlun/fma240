@@ -39,7 +39,20 @@ tableau
 
 %% Problem 4
 
-% See handin document.
+% First iteration.
+A = [1 2 2 1 1 0 1 0 0; 1 2 1 1 2 1 0 1 0; 3 6 2 1 3 0 0 0 1];
+b = [12; 18; 24];
+c = [0; 0; 0; 0; 0; 0; -1; -1; -1];
+basicvars = [7 8 9];
+[tableau, x, basic, feasible, optimal] = simplex(A, b, c, basicvars);
+tableau
+
+% Second iteration.
+A = [1 2 2 1 1 0; 1 2 1 1 2 1; 3 6 2 1 3 0 ];
+c = [1; -2; -3; -1; -1; 2];
+basicvars = [3 6 2];
+[tableau, x, basic, feasible, optimal] = simplex(A, b, c, basicvars);
+tableau
 
 %% Problem 5
 
