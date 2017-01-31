@@ -1,5 +1,4 @@
 % Calculate number of basic solutions and number of them that are feasible.
-
 function [feasible_array, num_basic] = calc_basic(A, b, c, basicvars);
 
     [num_basic_vars, ~] = size(b);

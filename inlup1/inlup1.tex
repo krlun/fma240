@@ -371,8 +371,39 @@
     in the columns labeled by the basic variables and all variables labeled by
     non-basic variables are non-negative, the solution is optimal.
 
-
 \section*{Exercise 6}
+
+    Determine the total number of basic solutions and how many of them are
+    feasible given the following data:
+
+    \begin{lstlisting}
+        A=[1,2,1,0;1,2,0,1];
+        b=[4;7];
+        c=[1;-1;0;0];
+        basicvars = [3 4];
+    \end{lstlisting}
+
+    \noindent
+    This was calculated with the help of checkbasic1, code can be found in the
+    attached file \textit{calc\_basic.m}.
+    The following formula gives the total number of basic solutions:
+
+    \begin{equation}
+        \binom{s}{m} = \frac{s!}{m!(s - m)!} = \binom{s}{s-m}
+    \end{equation}
+
+    \noindent
+    where $s$ is the number of equations in the system, and $m$ is the number
+    of columns or variables. ($s - m$ is equal to the number of
+    basic variables.) By iterating over all possible combination of basic
+    variables and using the checkbasic1 function to see if they are feasible or
+    not, the following data is acquired. \\
+
+    \noindent
+    Number of basic solutions: 6. \\
+    Number of basic feasible solutions: 3 ([1 4], [2 4], [3 4]).
+
+
 \section*{Exercise 7}
 
 
