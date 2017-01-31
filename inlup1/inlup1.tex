@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{listings}
 \usepackage{amsmath}
+\usepackage{tikz}
 \usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
 \begin{document}
 \begin{titlepage}
@@ -12,6 +13,10 @@
     \vspace{1cm}
 	\today\par
 \end{titlepage}
+
+\newcommand\encircle[1]{%
+  \tikz[baseline=(X.base)]
+    \node (X) [draw, shape=circle, inner sep=0] {\strut #1};}
 
 \definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
 \definecolor{mylilas}{RGB}{170,55,241}
@@ -145,7 +150,7 @@
         \begin{center}
             \begin{tabular}{ | c | c c c c c | c | }
                 \hline
-                       & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ &  \\
+                      & $x_0$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ &  \\
                 \hline
                 $x_3$ & 3  & 2   & 1 & 0   &  0   & 1  \\
                 $x_4$ & 2  & -1 & 0    & 1 &  0   & 2 \\
@@ -245,6 +250,128 @@
     \end{center}
 
 \section*{Exercise 5}
+
+    Manually determine the optimal result of the following data on canonical
+    form using the simplex method.
+
+    \begin{lstlisting}
+        A=[2,-3,2,1,0; ...
+           -1,1,1,0,1];
+        b=[3;5];
+        c=[3;2;1;0;0];
+    \end{lstlisting}
+
+    or, represented differently:
+
+    \begin{center}
+        maximize $ z = c^Tx $
+    \end{center}
+
+    subject to:
+
+    \begin{center}
+        \begin{math}
+            \begin{cases}
+                2x_1 - 3x_2 + 2x_3 + x_4 = 3\\
+                -x_1 - x_2 + x_3 + x_5 = 5
+            \end{cases}
+        \end{math}
+    \end{center}
+
+    Running the given data through the checkbasic1 function with $x_4$ and
+    $x_5$ as basic variables results in the following tableau:
+
+    \begin{center}
+        \begin{tabular}{ c | c | c c c c c | c | }
+            \multicolumn{1}{c}{}  & \multicolumn{1}{c}{}  &       &       &       & \multicolumn{1}{c}{}\\
+            \cline{2-8}
+            &  & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ &\\
+            \cline{2-8}
+                          &  $x_4$ &2 &-3 &2 &1 &0 &3\\
+                          &  $x_5$ &-1 &1 &1 &0 &1 &5\\
+            \cline{2-8}
+                          &        &-3 &-2 &-1 &0 &0 &0\\
+            \cline{2-8}
+        \end{tabular}
+    \end{center}
+
+    Since -3 at $x_1$ is the most negative value in the object row $x_1$ is
+    selected as the pivotal column. The pivot row is selected by calculating
+    the $\theta$-ratios for $x_4$ and $x_5$ and taking the smallest. But since
+    we don't use negative column values to calculate $\theta$-ratios, $x_4$ is
+    the pivot row, which makes 2 the outgoing variable.
+
+    \begin{center}
+        \begin{tabular}{ c | c | c c c c c | c | }
+            \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{$\downarrow$}  &       &       &       & \multicolumn{1}{c}{}\\
+            \cline{2-8}
+            &  & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ &\\
+            \cline{2-8}
+            $\leftarrow$  &  $x_4$ &\encircle{2} &-3 &2 &1 &0 &3\\
+                          &  $x_5$ &-1 &1 &1 &0 &1 &5\\
+            \cline{2-8}
+                          &        &-3 &-2 &-1 &0 &0 &0\\
+            \cline{2-8}
+        \end{tabular}
+    \end{center}
+
+    using checkbasic1 with the new basic values gives a new tableau. As
+    earlier, by checking the most negative value in the object row together
+    with the smallest $\theta$-ratio (1.5 vs. 3.25) $x_3$ is the ingoing
+    variable and $x_1$ the outgoing.
+
+    \begin{center}
+        \begin{tabular}{ c | c | c c c c c | c | }
+            \multicolumn{1}{c}{}  & \multicolumn{1}{c}{}  &    &       &  $\downarrow$     & \multicolumn{1}{c}{}\\
+            \cline{2-8}
+            &  & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ &\\
+            \cline{2-8}
+            $\leftarrow$  & $x_1$ &  1&  -1.5&   \encircle{1}&   0.5&        0&   1.5\\
+                          & $x_5$ &       0&  -0.5&   2&   0.5&   1&   6.5\\
+            \cline{2-8}
+            &  &       0&   6.5&  -2&  -1.5&        0&  -4.5\\
+            \cline{2-8}
+        \end{tabular}
+    \end{center}
+
+    next iteration:
+
+    \begin{center}
+        \begin{tabular}{ c | c | c c c c c | c | }
+            \multicolumn{1}{c}{}  & \multicolumn{1}{c}{}  &    & $\downarrow$ &     & \multicolumn{1}{c}{}\\
+            \cline{2-8}
+            &  & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ &\\
+            \cline{2-8}
+            & $x_3$ & 1& -1.5& 1& 0.5& 0& 3\\
+            $\leftarrow$ & $x_5$ & -2& \encircle{2.5}& 0& -0.5& 1& -1\\
+            \cline{2-8}
+            & & -2& -3.5& 0& 0.5& 0& -6\\
+            \cline{2-8}
+        \end{tabular}
+    \end{center}
+
+    next iteration:
+
+    \begin{center}
+        \begin{tabular}{ c | c | c c c c c | c | }
+            \multicolumn{1}{c}{}  & \multicolumn{1}{c}{}  &    & &     & \multicolumn{1}{c}{}\\
+            \cline{2-8}
+            &  & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ &\\
+            \cline{2-8}
+            & $x_3$ & -0.6667& 1& -0.6667& -0.3333& 0& -2\\
+            & $x_2$ & -0.3333& 0& 1.6667& 0.3333& 1& 10\\
+            \cline{2-8}
+            & & 4.3333 & 0& 2.3333& 0.6667& 0& 7\\
+            \cline{2-8}
+        \end{tabular}
+    \end{center}
+
+    Since there are no more negative values present in the objective-row, no
+    more iterations are possible. But since this iteration objective-row has 0
+    in the columns labeled by the basic variables and all variables labeled by
+    non-basic variables are non-negative, the solution is optimal.
+
+
 \section*{Exercise 6}
 \section*{Exercise 7}
 

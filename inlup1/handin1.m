@@ -39,3 +39,31 @@ tableau
 
 %% Problem 4
 
+%% Problem 5
+
+% Step 1.
+A=[2,-3,2,1,0;-1,1,1,0,1];
+b=[3;5];
+c=[3;2;1;0;0];
+basicvars = [4 5];
+disp('Problem 5');
+[tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars)
+
+% Step 2.
+%A = [2,-3,2,1,0;,-1,1,1,0,1]
+A = tableau([1,2], 1:end-1);
+c = tableau(end, 1:end-1)';
+basicvars = [1 5];
+[tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars)
+
+% Step 3.
+A = tableau([1,2], 1:end-1);
+c = tableau(end, 1:end-1)';
+basicvars = [3 5]
+[tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars)
+
+% Step 4.
+A = tableau([1,2], 1:end-1);
+c = tableau(end, 1:end-1)';
+basicvars = [2 5]
+[tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars)

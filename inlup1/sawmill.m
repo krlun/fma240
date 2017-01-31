@@ -8,11 +8,11 @@
 %A = [1 2 2 1 1 0 1 0 0; 1 2 1 1 2 1 0 1 0; 3 6 2 1 3 0 0 0 1];
 b = [12; 18; 24];
 %c = [0; 0; 0; 0; 0; 0; -1; -1; -1];
+%basicvars = [7 8 9];
 
 A = [1 2 2 1 1 0; 1 2 1 1 2 1; 3 6 2 1 3 0 ];
 c = [1; -2; -3; -1; -1; 2];
-
-basicvars = [3 6 1];
+basicvars = [3 6 2];
 [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars);
 
 while (~optimal)
@@ -26,7 +26,7 @@ while (~optimal)
         end
     end
 
-%    [Y, pivot(2)] = min(tableau(end, 1:end-1)); %ifall man vill k?ra utan
+   [Y, pivot(2)] = min(tableau(end, 1:end-1)); %ifall man vill k?ra utan
 %    Bland's regel
 
 %   det h?r ?r verkligen inte vackert...
@@ -36,21 +36,21 @@ while (~optimal)
             temp_pivot_1(i) = Inf;
         end
     end
-%    [Y, pivot(1)] = min(tableau(1:end-1, end)./tableau(1:end-1, pivot(2)));
-    [Y, pivot(1)] = min(temp_pivot_1); % det h?r ger 2) av Bland's regel, min v?ljer f?rsta elementet
+    [Y, pivot(1)] = min(tableau(1:end-1, end)./tableau(1:end-1, pivot(2)));
+%    [Y, pivot(1)] = min(temp_pivot_1); % det h?r ger 2) av Bland's regel, min v?ljer f?rsta elementet
     if (all(tableau(1:end-1, pivot(2)) <= 0))
         disp('No finite optimum exists.')
         break;
     end
-    
+
     tableau(pivot(1), :) = 1/tableau(pivot(1), pivot(2))*tableau(pivot(1), :);
-    
+
     index = 1:s(1);
     index(pivot(1)) = [];
     for i = index
         tableau(i, :) = tableau(i, :) - tableau(i, pivot(2))*tableau(pivot(1), :);
     end
-    
+
     basicvars = zeros(1, length(basicvars));
     for i = 1:length(basicvars)
         for j = 1:s(2)-1
@@ -66,3 +66,8 @@ while (~optimal)
     end
     [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars);
 end
+tableau 
+x
+basic 
+feasible 
+optimal
