@@ -1,4 +1,7 @@
 % Handin1 FMA240
+%Authors:
+%  Kristoffer Lundgren <kem01klu@student.lu.se>
+%  Stefan Eng <atn08sen@student.lu.se>
 
 %% Problem 2
 

@@ -1,3 +1,6 @@
+%Authors:
+%  Kristoffer Lundgren <kem01klu@student.lu.se>
+%  Stefan Eng <atn08sen@student.lu.se>
 function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars);
 % [x, basic, optimal, feasible] = checkbasic1(A, b, c, basicvars),
 % INPUT: A - mxn matrix
