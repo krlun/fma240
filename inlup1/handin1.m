@@ -67,14 +67,6 @@ disp('Problem 5');
 basicvars = [1 5];
 [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars)
 
-% Step 3.
-basicvars = [3 5]
-[tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars)
-
-% Step 4.
-basicvars = [2 5]
-[tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars)
-
 %% Problem 6.
 disp('Problem 6');
 
