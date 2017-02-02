@@ -29,16 +29,17 @@ function [tableau, x, basic, feasible, optimal] = simplex(A, b, c, basicvars);
     while (~optimal)
         [~, entering] = min(tableau(end, 1:end-1));
         theta = tableau(1:end-1, end)./tableau(1:end-1, entering);
-        if (max(theta) <= 0)
+        theta(theta <= 0) = Inf;
+        [~, departing] = min(theta);
+        if ((max(tableau(1:end-1, entering)) <= 0) || departing == Inf)
             disp('No finite optimum exists.');
             break;
         end
-        theta(theta <= 0) = Inf;
 
-        [~, departing] = min(theta);
         basicvars(departing) = entering;
         [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars);
         tableau
     end
+    basicvars
 
 end
