@@ -30,7 +30,7 @@ function [tableau, x, basic, feasible, optimal] = simplex(A, b, c, basicvars);
         [~, entering] = min(tableau(end, 1:end-1));
         theta = tableau(1:end-1, end)./tableau(1:end-1, entering);
         if (max(theta) <= 0)
-            disp('No finite optimum exists');
+            disp('No finite optimum exists.');
             break;
         end
         theta(theta <= 0) = Inf;
