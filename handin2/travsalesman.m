@@ -10,6 +10,3 @@ end
 startx=1;
 bounds=boundy(startx,D,minmax);
 [x,fopt]=branchandbound(startx,D,minmax,bounds(2));
-
-
-
