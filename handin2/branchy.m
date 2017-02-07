@@ -6,12 +6,14 @@ function X=branchy(x,N);
 % x is a 1xn vector, and N is the total number
 % of cities in the problem.
     
-    X = zeros(N-length(x), length(x)+1);
+%    X = zeros(N-length(x), length(x)+1);
 
     xtemp = 1:N;
     xtemp(x) = [];
-    for i = 1:length(xtemp)
-        X(i, :) = [x xtemp(i)];
-    end
+    X = [repmat(x, N-length(x), 1) xtemp'];
+    
+%    for i = 1:length(xtemp)
+%        X(i, :) = [x xtemp(i)];
+%    end
     
 end
