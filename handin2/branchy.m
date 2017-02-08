@@ -5,15 +5,13 @@ function X=branchy(x,N);
 % of the input path x.
 % x is a 1xn vector, and N is the total number
 % of cities in the problem.
-    
-%    X = zeros(N-length(x), length(x)+1);
 
-%    xtemp = 1:N;
-%    xtemp(x) = [];
+%     %snabbare
+%     remainingCities = 1:N;
+%     remainingCities(x) = [];
+%     X = [repmat(x, N-length(x), 1) remainingCities'];
+
+    %oneliner, men l?ngsam p? grund av setdiff
     X = [repmat(x, N-length(x), 1) setdiff(1:N, x)'];
-    
-%    for i = 1:length(xtemp)
-%        X(i, :) = [x xtemp(i)];
-%    end
     
 end
