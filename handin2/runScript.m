@@ -1,5 +1,5 @@
 NStart = 4;
-NEnd = 20;
+NEnd = 13;
 distanceLimit = 200;
 time = [];
 for i = NStart:NEnd
