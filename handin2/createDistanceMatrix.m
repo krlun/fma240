@@ -6,5 +6,5 @@ function [D] = createDistanceMatrix(N, distanceLimit)
         D(i, i) = 0;
         D(:, i) = D(i, :)';
     end
-    
+
 end
