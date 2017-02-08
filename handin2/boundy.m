@@ -24,6 +24,8 @@ function bounds=boundy(x,D,minmax);
         bounds(1) = bounds(1) + D(x(end), x(1));
         bounds(2) = bounds(2) + D(x(end), x(1));
     else
+        bounds(1) = bounds(1) + minmax(x(end), 1);
+        bounds(2) = bounds(2) + minmax(x(end), 2);
         for i = 1:length(remainingCities)
             bounds(1) = bounds(1) + minmax(remainingCities(i), 1);
             bounds(2) = bounds(2) + minmax(remainingCities(i), 2);
