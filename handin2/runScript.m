@@ -1,5 +1,5 @@
 NStart = 4;
-NEnd = 14;
+NEnd = 20;
 distanceLimit = 200;
 time = [];
 for i = NStart:NEnd
@@ -12,6 +12,7 @@ subplot(2, 1, 1);
 plot(NStart:NEnd, time);
 xlabel('# of cities');
 ylabel('Execution time/s');
+grid on;
 subplot(2, 1, 2);
 plot(NStart:NEnd, log(time));
 xlabel('# of cities');
