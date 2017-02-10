@@ -25,11 +25,11 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
 
     s = size(A);
     nonbasicvars = 1:s(2);
-    nonbasicvars([basicvars]) = [];
-    A_B = A(:, [basicvars]);
-    A_N = A(:, [nonbasicvars]);
-    c_B = c([basicvars]);
-    c_N = c([nonbasicvars]);
+    nonbasicvars(basicvars) = [];
+    A_B = A(:, basicvars);
+    A_N = A(:, nonbasicvars);
+    c_B = c(basicvars);
+    c_N = c(nonbasicvars);
     ABAN = A_B\A_N;
     ABb = A_B\b;
 
@@ -48,7 +48,11 @@ function [tableau, x, basic, feasible, optimal] = checkbasic1(A, b, c, basicvars
         feasible = 1;
     end
 
-    if (all(A*x == b))
+%     if (all(A*x == b))
+%         basic = 1;
+%     end
+
+    if (rank(A_B) == rank([A_B b]))
         basic = 1;
     end
 
