@@ -1,15 +1,15 @@
 NStart = 4;
-NEnd = 12;
+NEnd = 14;
 distanceLimit = 200;
 nrOfSamples = 20;
 time = [];
 for i = NStart:NEnd
-    sample = 0;
+    samples = zeros(1, nrOfSamples);
     parfor j = 1:nrOfSamples
         tic;
         D = createDistanceMatrix(i, distanceLimit);
         [x,fopt] = travsalesman(D)
-        sample = sample + toc;
+        samples(i = sample + toc;
     end
     time = [time sample/nrOfSamples];
 end
