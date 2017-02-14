@@ -1,4 +1,4 @@
-function [D] = createDistanceMatrix(N, distanceLimit)
+function [D] = createdistancematrix(N, distanceLimit)
 %CREATEDISTANCEMATRIX creates a symmetric distance matrix, given
 % the N number of cities and a distance limit distanceLimit between
 % any two cities.
