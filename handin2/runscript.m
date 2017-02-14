@@ -7,7 +7,7 @@ for i = NStart:NEnd
     sample = 0;
     parfor j = 1:nrOfSamples
         tic;
-        D = createDistanceMatrix(i, distanceLimit);
+        D = createdistancematrix(i, distanceLimit);
         [x,fopt] = travsalesman(D)
         sample = sample + toc;
     end
