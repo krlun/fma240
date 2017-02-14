@@ -11,6 +11,9 @@ function bounds=boundy(path,D,dist_minmax);
     % Get the number of columns in D.
     [~, N] = size(D);
 
+    % RemainingCities on one line, slower because of setdiff?
+%    RemainingCities = setdiff(1:N, path);
+
     % Enumerate cities, unset cities already in path.
     RemainingCities = 1:N;
     RemainingCities(path) = [];
