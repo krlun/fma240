@@ -18,9 +18,9 @@ function bounds=boundy(x,D,minmax);
     remaining_cities = 1:N;
     remaining_cities(x) = [];
 
-%    distanceTraveled = 0;
+%    distance_traveled = 0;
 %    for i = 2:length(path)
-%        distanceTraveled = distanceTraveled + D(path(i-1), path(i));
+%        distance_traveled = distance_traveled + D(x(i-1), x(i));
 %    end
 
     % Calculate traveled distance and remaining min/max distances.
