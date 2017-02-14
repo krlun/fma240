@@ -12,12 +12,12 @@ function bounds=boundy(path,D,dist_minmax);
     [~, columns] = size(D);
 
     % Enumerate cities, unset cities already in path.
-    cities = 1:columns;
-    cities(path) = [];
+    RemainingCities = 1:columns;
+    RemainingCities(path) = [];
 
     % Calculate traveled distance and remaining min/max distances.
     sum_dim = 1; % Force the summation into a vector.
-    remaining_minmax = sum(dist_minmax(cities, :), sum_dim);
+    remaining_minmax = sum(dist_minmax(RemainingCities, :), sum_dim);
     current_distance = sum(diag(D(path(1:end-1), path(2:end))));
 
     bounds = remaining_minmax + current_distance;
