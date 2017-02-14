@@ -15,6 +15,11 @@ function bounds=boundy(path,D,dist_minmax);
     RemainingCities = 1:N;
     RemainingCities(path) = [];
 
+%    distanceTraveled = 0;
+%    for i = 2:length(path)
+%        distanceTraveled = distanceTraveled + D(path(i-1), path(i));
+%    end
+
     % Calculate traveled distance and remaining min/max distances.
     sum_dim = 1; % Force the summation into a vector.
     remaining_minmax = sum(dist_minmax(RemainingCities, :), sum_dim);
