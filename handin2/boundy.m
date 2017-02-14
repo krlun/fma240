@@ -9,10 +9,10 @@ function bounds=boundy(path,D,dist_minmax);
 % from city i.
 
     % Get the number of columns in D.
-    [~, columns] = size(D);
+    [~, N] = size(D);
 
     % Enumerate cities, unset cities already in path.
-    RemainingCities = 1:columns;
+    RemainingCities = 1:N;
     RemainingCities(path) = [];
 
     % Calculate traveled distance and remaining min/max distances.
@@ -22,7 +22,7 @@ function bounds=boundy(path,D,dist_minmax);
 
     bounds = remaining_minmax + current_distance;
 
-    if (length(path) == columns),
+    if (length(path) == N),
         % Visited all cities, add return length.
         bounds = bounds + D(path(end), path(1));
     else % Haven't reached the end, add minmax for last visit.
