@@ -1,5 +1,5 @@
 NStart = 4;
-NEnd = 12;
+NEnd = 14;
 distanceLimit = 200;
 nrOfSamples = 20;
 time = [];
