@@ -8,7 +8,7 @@ for i = NStart:NEnd
     for j = 1:nrOfSamples
         tic;
         D = createDistanceMatrix(i, distanceLimit);
-        [x,fopt] = travsalesman(D);
+        [x,fopt] = travsalesman(D)
         sample = sample + toc;
     end
     time = [time sample/nrOfSamples];
