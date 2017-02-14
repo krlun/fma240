@@ -12,7 +12,7 @@ function bounds=boundy(x,D,minmax);
     [~, N] = size(D);
 
     % remaining_cities on one line, slower because of setdiff.
-%    remaining_cities = setdiff(1:N, path);
+%    remaining_cities = setdiff(1:N, x);
 
     % Enumerate cities, unset cities already in path.
     remaining_cities = 1:N;
