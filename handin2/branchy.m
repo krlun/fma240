@@ -19,4 +19,7 @@ function X=branchy(curr_path,N);
      % Append remaining cities.
      X = [X remainingCities'];
 
+%    oneliner, men långsam på grund av setdiff.
+%    X = [repmat(x, N-length(x), 1) setdiff(1:N, x)'];
+
 end
