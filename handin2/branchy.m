@@ -14,10 +14,8 @@ function X=branchy(x,N);
      num_remaining = N-length(x);
      rep_col = 1; % Constrain repetition to one column.
 
-     % Repeat current path num_remaining times, append remaining cities.
-     X = [repmat(x, num_remaining, rep_col)];
-     % Append remaining cities.
-     X = [X remainingCities'];
+     % Repeat current path num_remaining times, append cities.
+     X = [repmat(curr_path, num_remaining, rep_col) remainingCities'];
 
 %    one liner, slow because of setdiff
 %    X = [repmat(x, N-length(x), 1) setdiff(1:N, x)'];
