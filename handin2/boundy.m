@@ -4,7 +4,7 @@ function bounds=boundy(x,D,minmax);
 % respectively,
 % given the 1xn vector with the current path,
 % the NxN distance matrix D and the Nx2 matrix
-% dist_minmax, where minmax(i,1) is the minimum distance
+% minmax, where minmax(i,1) is the minimum distance
 % from city i and minmax(i,2) is the maximum distance
 % from city i.
 
@@ -25,15 +25,15 @@ function bounds=boundy(x,D,minmax);
 
     % Calculate traveled distance and remaining min/max distances.
     sum_dim = 1; % Force the summation into a vector.
-    remaining_minmax = sum(dist_minmax(RemainingCities, :), sum_dim);
-    current_distance = sum(diag(D(path(1:end-1), path(2:end))));
+    remaining_minmax = sum(minmax(RemainingCities, :), sum_dim);
+    current_distance = sum(diag(D(x(1:end-1), x(2:end))));
 
     bounds = remaining_minmax + current_distance;
 
-    if (length(x) == N),
+    if (length(x) == N)
         % Visited all cities, add return length.
         bounds = bounds + D(x(end), x(1));
     else % Haven't reached the end, add minmax for last visit.
-        bounds = bounds + dist_minmax(x(end), :);
+        bounds = bounds + minmax(x(end), :);
     end
 end

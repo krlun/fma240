@@ -7,17 +7,17 @@ function X=branchy(x,N);
 % of cities in the problem.
 
      % Enumerate all cities 1 -> N, unset visited cities.
-     remainingCities = 1:N;
-     remainingCities(x) = [];
+     RemainingCities = 1:N;
+     RemainingCities(x) = [];
 
      % Set variables for row repetition.
      num_remaining = N-length(x);
      rep_col = 1; % Constrain repetition to one column.
 
-     % Repeat current path num_remaining times, append cities.
-     X = [repmat(curr_path, num_remaining, rep_col) remainingCities'];
+     % Repeat current path num_remaining times, append remaining cities.
+     X = [repmat(x, num_remaining, rep_col) RemainingCities'];
 
-%    one liner, slow because of setdiff
-%    X = [repmat(x, N-length(x), 1) setdiff(1:N, x)'];
+     % One liner, slow because of setdiff.
+%     X = [repmat(x, N-length(x), 1) setdiff(1:N, x)'];
 
 end
