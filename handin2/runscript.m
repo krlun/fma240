@@ -1,18 +1,21 @@
 NStart = 4;
-NEnd = 14;
+NEnd = 10;
 distanceLimit = 200;
 nrOfSamples = 20;
 time = [];
+startLoop = tic;
 for i = NStart:NEnd
     sample = 0;
     parfor j = 1:nrOfSamples
-        tic;
+        startIteration = tic;
         D = createdistancematrix(i, distanceLimit);
-        [x,fopt] = travsalesman(D)
-        sample = sample + toc;
+        [x,fopt] = travsalesman(D);
+        endIteration = toc(startIteration);
+        sample = sample + endIteration;
     end
     time = [time sample/nrOfSamples];
 end
+endLoop = toc(startLoop)
 subplot(2, 1, 1);
 plot(NStart:NEnd, time);
 xlabel('# of cities');
