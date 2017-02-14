@@ -1,0 +1,146 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+
+\begin{document}
+
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+
+\lstset{language=Matlab,%
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=false,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},
+}
+
+\begin{centering}
+	{\scshape\Large FMA240 - Handin 2\par}
+	\vspace{0.5cm}
+	Kristoffer Lundgren \texttt{<kem01klu@student.lu.se>}\par
+	Stefan Eng \texttt{<atn08sen@student.lu.se>}\par
+    \vspace{0.5cm}
+	\today\par
+    \rule{\textwidth}{0.4pt}
+\end{centering}
+
+\section*{Exercise 1}
+  \noindent
+  \textit{Construction of boundy.m and branchy.m functions.}
+
+  \subsection*{boundy.m}
+
+  \begin{lstlisting}
+function bounds=boundy(path,D,dist_minmax);
+% function bounds=boundy(path,D,dist_minmax);
+% calculates the 1x2 vector with lower and upper bound
+% respectively,
+% given the 1xn vector with the current path,
+% the NxN distance matrix D and the Nx2 matrix
+% dist_minmax, where dist_minmax(i,1) is the minimum distance
+% from city i and dist_minmax(i,2) is the maximum distance
+% from city i.
+
+    % Get the number of columns in D.
+    [~, columns] = size(D);
+
+    % Enumerate cities, unset cities already in path.
+    cities = 1:columns;
+    cities(path) = [];
+
+    % Calculate traveled distance and remaining min/max distances.
+    sum_dim = 1; % Force the summation into a vector.
+    remaining_minmax = sum(dist_minmax(cities, :), sum_dim);
+    current_distance = sum(diag(D(path(1:end-1), path(2:end))));
+
+    bounds = remaining_minmax + current_distance;
+
+    if (length(path) == columns),
+        % Visited all cities, add return length.
+        bounds = bounds + D(path(end), path(1));
+    else % Haven't reached the end, add minmax for last visit.
+        bounds = bounds + dist_minmax(path(end), :);
+    end
+end
+  \end{lstlisting}
+
+  \noindent
+  The function takes the current path, the distance matrix, and an array that
+  represents the minimum and maximum distance for the cities.
+
+  \newpage
+
+  \subsection*{branchy.m}
+
+  \begin{lstlisting}
+function X=branchy(curr_path,N);
+% function X=branchy(curr_path,N);
+% returns the mx(n+1) matrix X where
+% each row of X is a possible extension
+% of the input path curr_path.
+% path is a 1xn vector, and N is the total number
+% of cities in the problem.
+
+     % Enumerate all cities 1 -> N, unset visited cities.
+     remainingCities = 1:N;
+     remainingCities(curr_path) = [];
+
+     % Set variables for row repetition.
+     num_remaining = N-length(curr_path);
+     rep_col = 1; % Constrain repetition to one column.
+
+     % Repeat current path num_remaining times.
+     X = [repmat(curr_path, num_remaining, rep_col)];
+     % Append remaining cities.
+     X = [X remainingCities'];
+
+end
+  \end{lstlisting}
+
+  \noindent
+  The function takes the current path and the total number of cities and
+  returns a matrix where each row is a possible next step in the path. \\
+
+\section*{Exercise 2}
+
+  \textit{Run the travsalesman.m script from the homepage that will make
+  use of the functions created in exercise 1.}
+
+  \subsection*{Results from travsalesman.m}
+
+  \begin{lstlisting}
+>> [x, fopt] = travsalesman(D)
+
+x =
+
+     1     4     9     5     2     8     3     7     6
+
+
+fopt =
+
+    56
+  \end{lstlisting}
+
+  \noindent
+  Where x is the optimal path, and the total distance traveled is 56.
+
+  \newpage
+
+\section*{Exercise 3}
+
+  \textit{Run the travsalesman.m script for a travelling problems of different
+  sizes and plot the execution time as a function of the number of cities in
+  the problem.}
+
+  \subsection*{Results and plots}
+
+\end{document}

@@ -1,35 +1,31 @@
-function bounds=boundy(x,D,minmax);
-% function bounds=boundy(x,D,minmax);
+function bounds=boundy(path,D,dist_minmax);
+% function bounds=boundy(path,D,dist_minmax);
 % calculates the 1x2 vector with lower and upper bound
 % respectively,
 % given the 1xn vector with the current path,
 % the NxN distance matrix D and the Nx2 matrix
-% minmax, where minmax(i,1) is the minimum distance
-% from city i and minmax(i,2) is the maximum distance
+% dist_minmax, where dist_minmax(i,1) is the minimum distance
+% from city i and dist_minmax(i,2) is the maximum distance
 % from city i.
 
-%    bounds = zeros(1, 2);
+    % Get the number of columns in D.
     [~, N] = size(D);
-    
-    %fungerar och ?r r?tt snabbt
-     remainingCities = 1:N;
-     remainingCities(x) = [];
 
-    %oneliner, men l?ngsam p? grund av setdiff
-%    remainingCities = setdiff(1:N, x);
+    % Enumerate cities, unset cities already in path.
+    RemainingCities = 1:N;
+    RemainingCities(path) = [];
 
-%    distanceTraveled = 0;
-%    for i = 2:length(x)
-%        distanceTraveled = distanceTraveled + D(x(i-1), x(i));
-%    end
+    % Calculate traveled distance and remaining min/max distances.
+    sum_dim = 1; % Force the summation into a vector.
+    remaining_minmax = sum(dist_minmax(RemainingCities, :), sum_dim);
+    current_distance = sum(diag(D(path(1:end-1), path(2:end))));
 
-    bounds = sum(minmax(remainingCities, :), 1) + ...
-        sum(diag(D(x(1:end-1), x(2:end))));
-    
-    if (length(x) == N)
-        bounds = bounds + D(x(end), x(1));
-    else
-        bounds = bounds + minmax(x(end), :);
+    bounds = remaining_minmax + current_distance;
+
+    if (length(path) == N),
+        % Visited all cities, add return length.
+        bounds = bounds + D(path(end), path(1));
+    else % Haven't reached the end, add minmax for last visit.
+        bounds = bounds + dist_minmax(path(end), :);
     end
-
 end
