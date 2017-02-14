@@ -11,8 +11,8 @@ function bounds=boundy(x,D,minmax);
     % Get the number of cities.
     [~, N] = size(D);
 
-    % RemainingCities on one line, slower because of setdiff
-%    RemainingCities = setdiff(1:N, path);
+    % remaining_cities on one line, slower because of setdiff.
+%    remaining_cities = setdiff(1:N, path);
 
     % Enumerate cities, unset cities already in path.
     remaining_cities = 1:N;
