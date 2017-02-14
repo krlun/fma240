@@ -7,11 +7,11 @@ function X=branchy(x,N);
 % of cities in the problem.
 
 %     %snabbare
-%     remainingCities = 1:N;
-%     remainingCities(x) = [];
-%     X = [repmat(x, N-length(x), 1) remainingCities'];
+     remainingCities = 1:N;
+     remainingCities(x) = [];
+     X = [repmat(x, N-length(x), 1) remainingCities'];
 
     %oneliner, men l?ngsam p? grund av setdiff
-    X = [repmat(x, N-length(x), 1) setdiff(1:N, x)'];
+%    X = [repmat(x, N-length(x), 1) setdiff(1:N, x)'];
     
 end
