@@ -18,8 +18,8 @@ while true
         j = J(1);
     else
         disp('Optimal flow found:');
-        [x s;d' 0]
-        cost = sum(sum(c.*x))
+        [x s;d' 0];
+        cost = sum(sum(c.*x));
         break;
     end
     [x,b]=cycle(x,i,j,b);
