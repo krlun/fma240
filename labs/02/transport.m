@@ -18,10 +18,22 @@ while true
         j = J(1);
     else
         disp('Optimal flow found:');
-        [x s;d' 0];
+        %[x s;d' 0];
+        s = size(c);
+        for i = 1:s(1)
+            for j = 1:s(2)
+                if (c(i, j) == Inf)
+                    c(i, j) = 0;
+                end
+            end
+        end
         cost = sum(sum(c.*x));
         break;
     end
     [x,b]=cycle(x,i,j,b);
 end
+
+% c = [11 Inf 8 8 0; 7 5 6 12 0; 7 6 8 5 0];
+% s = [100; 120; 60];
+% d = [50; 40; 90; 70; 30];
 
