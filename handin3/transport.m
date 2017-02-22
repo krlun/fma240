@@ -19,14 +19,7 @@ while true
     else
         disp('Optimal flow found:');
         %[x s;d' 0];
-        s = size(c);
-        for i = 1:s(1)
-            for j = 1:s(2)
-                if (c(i, j) == Inf)
-                    c(i, j) = 0;
-                end
-            end
-        end
+        c(c == Inf) = 0;
         cost = sum(sum(c.*x));
         break;
     end
