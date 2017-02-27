@@ -1,0 +1,271 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+
+\begin{document}
+
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+
+\lstset{language=Matlab,%
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=false,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},
+}
+
+\begin{centering}
+	{\scshape\Large FMA240 - Handin 3\par}
+	\vspace{0.5cm}
+	Kristoffer Lundgren \texttt{<kem01klu@student.lu.se>}\par
+	Stefan Eng \texttt{<atn08sen@student.lu.se>}\par
+    \vspace{0.5cm}
+	\today\par
+    \rule{\textwidth}{0.4pt}
+\end{centering}
+
+\section*{Exercise 1}
+  In a transportation problem we can always assume that the total supply equals the total demand. If this is not the case, one can always add a dummy column or row with 0 costs to obtain balance by supplying the missing demand or supply. The general transportation problem can then be formulated as
+  \begin{align*}
+  & \text{Minimize } z = \sum_{i=1}^{m}\sum_{j=1}^n c_{ij}x_{ij} \\
+  & \text{subject to}
+    \label{eq1}
+  \end{align*}
+  \begin{align}
+    \begin{cases}
+      \sum_{j=1}^{n} x_{ij} = s_{i}, & i = 1, 2, ..., m \\
+      \sum_{i=1}^{m} x_{ij} = d_{j}, & j = 1, 2, ..., n
+    \end{cases}
+    %\label{eq2}
+  \end{align}
+  \begin{equation}
+    \sum_{i=1}^{m} s_{i} = \sum_{j=1}^n d_{j}
+    \label{eq3}
+  \end{equation}
+  \begin{equation}
+    x_{ij} \geq 0, i = 1, 2, ..., m, j = 1, 2, ..., n.
+    \label{eq4}
+  \end{equation}
+
+  \noindent
+  In the case of this handin, the cost matrix is given by
+  \begin{equation}
+    \mathbf{C} = 
+    \begin{pmatrix}
+      11 & * & 8 & 8 \\
+      7  & 5 & 6 & 12 \\
+      7  & 6 & 8 & 5
+    \end{pmatrix},
+    \label{eq5}
+  \end{equation}
+  where $*$ signifies that supplier 1 cannot deliver to location 2. Also, supplier 1 offers a discount for location 4: every unit after $20k$ costs only 5, instead of 8.
+  The supply vector is give by
+  \begin{equation}
+    \mathbf{s} =
+    \begin{pmatrix}
+      100k & 120k & 60k
+    \end{pmatrix}^T
+    \label{eq6}
+  \end{equation}
+  where $k = 10^3$. Finally, the demand vector is given by
+  \begin{equation}
+    \mathbf{d} =
+    \begin{pmatrix}
+      50k & 40k & 90k & 70k
+    \end{pmatrix}^T,
+    \label{eq7}
+  \end{equation}
+  where again $k = 10^3$. Obviously, for this case it does not hold that supply equals demand. In fact, there is $30k$ less demand than there is supply. As mentioned above, this can be taken care of by adding a dummy delivery location, which soaks up the remaining $30k$, with
+  a unit transportation cost of $0$. This means that the cost matrix in equation (\ref{eq5}) becomes
+  \begin{equation}
+    \mathbf{C} = 
+    \begin{pmatrix}
+      11 & * & 8 & 8  & 0\\
+      7  & 5 & 6 & 12 & 0\\
+      7  & 6 & 8 & 5  & 0
+    \end{pmatrix},
+    \label{eq8}
+  \end{equation}
+  as well as the demand vector in equation (\ref{eq7}) changing to
+  \begin{equation}
+    \mathbf{d} =
+    \begin{pmatrix}
+      50k & 40k & 90k & 70k & 30k
+    \end{pmatrix}^T,
+    \label{eq9}
+  \end{equation}.
+
+  \noindent
+  To make sure that nothing gets delivered to location 2 from supplier 1, the constraints in equation (\ref{eq4}) must be modified such that for $x_{12}$ it must be that $x_{12} = 0$. The discount in turn can handled by dividing the problem in two cases: either location 4 buys 0 to 20k units from supplier 1 or more than 20k units from supplier 1. To mathematically formulate optimization problems for these two cases, location 4 is divided into two locations, 4a and 4b. In case 1, location 4b cannot buy from supplier 1, in case 2 location 4a cannot buy from supplier 2 and 3. The best solution for either of these two cases is then accepted as the answer to the original problem. To formulate this more mathematically, we thus have, for case 1:
+ % m = 3
+ % n = 6
+  \begin{align*}
+  & \text{Minimize } z = \sum_{i=1}^{3}\sum_{j=1}^6 c_{ij}x_{ij} \\
+  & \text{subject to}
+    \label{eq10}
+  \end{align*}
+  \begin{align}
+    \begin{cases}
+      \sum_{j=1}^{6} x_{ij} = s_{i}, & i = 1, 2, 3 \\
+      \sum_{i=1}^{3} x_{ij} = d_{j}, & j = 1, 2, ..., 6
+    \end{cases}
+    %\label{eq11}
+  \end{align}
+  \begin{equation}
+    \sum_{i=1}^{3} s_{i} = \sum_{j=1}^6 d_{j}
+    \label{eq12}
+  \end{equation}
+  \begin{equation}
+    x_{ij} \geq 0, i = 1, 2, 3, j = 1, 2, ..., 6, x_{12} = 0 x_{15} = 0.
+    \label{eq13}
+  \end{equation}
+  with
+  \begin{equation}
+    \mathbf{C} = 
+    \begin{pmatrix}
+      11 & * & 8 & 8  & *  & 0\\
+      7  & 5 & 6 & 12 & 12 & 0\\
+      7  & 6 & 8 & 5  & 5  & 0
+    \end{pmatrix},
+    \label{eq14}
+  \end{equation}
+  \begin{equation}
+    \mathbf{d} =
+    \begin{pmatrix}
+      50k & 40k & 90k & 20k & 50k & 70k & 30k
+    \end{pmatrix}^T
+    \label{eq15}
+  \end{equation}
+  and
+  \begin{equation}
+    \mathbf{s} =
+    \begin{pmatrix}
+      100k & 120k & 60k
+    \end{pmatrix}^T.
+    \label{eq16}
+  \end{equation}
+
+  \noindent
+  For case 2 we instead have:
+   \begin{align*}
+  & \text{Minimize } z = \sum_{i=1}^{3}\sum_{j=1}^6 c_{ij}x_{ij} \\
+  & \text{subject to}
+    \label{eq17}
+  \end{align*}
+  \begin{align}
+    \begin{cases}
+      \sum_{j=1}^{6} x_{ij} = s_{i}, & i = 1, 2, 3 \\
+      \sum_{i=1}^{3} x_{ij} = d_{j}, & j = 1, 2, ..., 6
+    \end{cases}
+    %\label{eq18}
+  \end{align}
+  \begin{equation}
+    \sum_{i=1}^{3} s_{i} = \sum_{j=1}^6 d_{j}
+    \label{eq19}
+  \end{equation}
+  \begin{equation}
+    x_{ij} \geq 0, i = 1, 2, 3, j = 1, 2, ..., 6, x_{12} = 0, x_{24} = 0, x_{34} = 0.
+    \label{eq20}
+  \end{equation}
+  with
+  \begin{equation}
+    \mathbf{C} = 
+    \begin{pmatrix}
+      11 & * & 8 & 8  & 5  & 0\\
+      7  & 5 & 6 & *  & 12 & 0\\
+      7  & 6 & 8 & *  & 5  & 0
+    \end{pmatrix},
+    \label{eq21}
+  \end{equation}
+  \begin{equation}
+    \mathbf{d} =
+    \begin{pmatrix}
+      50k & 40k & 90k & 20k & 50k & 70k & 30k
+    \end{pmatrix}^T
+    \label{eq22}
+  \end{equation}
+  and
+  \begin{equation}
+    \mathbf{s} =
+    \begin{pmatrix}
+      100k & 120k & 60k
+    \end{pmatrix}^T.
+    \label{eq23}
+  \end{equation}
+
+  \section*{Exercise 2}
+  To solve the transportation problems formulated in exercise 1 above, it is easiest to use the transportation algorithm (although, writing out all the constraints and running for example simplex would be possibe, but more work).
+
+  \noindent
+  The transportation algorithm starts by finding a feasible solution to the problem by some method. One is for example the \textit{Minimum cell cost} method, which is a greedy algorithm occupying the transport routes that are the cheapest for each row in the cost matrix and meeting the respective supply and demand, starting with the first row and then doing the same for each consecutive row. The rest of the routes are set to 0.
+  To find an improvement to this starting solution (or verifying that it is the optimal solution), one then defines the reduced costs as
+  \begin{equation}
+    \hat{c}_{ij} = c_{ij} - v_i - w_j,
+    \label{eq24}
+  \end{equation}
+  where $\hat{c}_{ij}$ would appear as slack variables when solving the dual system, $v_i$ and $w_j$ in turn are the variables for the dual system. Complementary slackness can now be used, which states that for an optimal solution it must hold that
+  \begin{equation}
+    \hat{c}_{ij}x_{ij} = 0 \Rightarrow \text{if } x_{ij} \neq 0 \text{ then } \hat{c}_{ij} = 0.
+  \end{equation}
+  Creating a table for the $\hat{c}_{ij}$:s, these must be 0 where $x_{ij}$ is not. For these positions, it must then hold that $c_{ij} = v_i + w_j$ (as can be seen from equation (\ref{eq24})). Solving this equation system, the rest of the reduced costs can be calculated. The reduced costs should then be interpreted as the change in the total cost that we are optimizing for if one more unit is transported along that route; thus, finding a negative reduced cost means that the solution to the transport problem can be improved. Repeating this procedure until no more negative reduced costs are found, the optimal solution to the problem has then been found and can be returned as the answer.
+
+  \section*{Exercise 3}
+  Solving the two problems listed under the section ``Exercise 1'' above, the respective solutions are:
+
+  \subsection*{Case 1}
+  \begin{lstlisting}
+>> ca = [11    100     8   8       100     0; 
+         7     5       6   12      12      0; 
+         7     6       8   5       5       0];
+>> da = [50;   40;     90; 20;     50;     30];
+>> sa = [100; 120; 60];
+>> [xa, costa] = transport(sa, da, ca)
+Optimal flow found:
+
+xa =
+
+     0     0    60    10     0    30
+    50    40    30     0     0     0
+     0     0     0    10    50     0
+
+
+costa =
+
+        1590
+  \end{lstlisting}
+
+  \subsection*{Case 2}
+  \begin{lstlisting}
+>> cb = [11    100     8   8       5       0; 
+         7     5       6   100     12      0; 
+         7     6       8   100     5       0];
+>> db = [50;   40;     90; 20;     50;     30];
+>> sb = [100; 120; 60];
+>> [xb, costb] = transport(sb, db, cb)
+Optimal flow found:
+
+xb =
+
+     0     0     0    20    50    30
+     0    30    90     0     0     0
+    50    10     0     0     0     0
+
+
+costb =
+
+        1510
+  \end{lstlisting}
+
+  \noindent
+  The total cost is thus lower in the case where location 4 buys more than $20k$ units from supplier 1 and thereby obtaining the discount. In summary, location 1 should by $50k$ units from supplier 3, location 2 should by $30k$ units from supplier 2 and $10k$ units from supplier 3, location 3 should by $90k$ units from supplier 2 and location 4 should by $70k$ units from supplier 1, in order to minimize the total costs. The total cost is 1510000.
+
+\end{document}
