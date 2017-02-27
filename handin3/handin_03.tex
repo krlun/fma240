@@ -216,7 +216,9 @@
   \begin{equation}
     \hat{c}_{ij}x_{ij} = 0 \Rightarrow \text{if } x_{ij} \neq 0 \text{ then } \hat{c}_{ij} = 0.
   \end{equation}
-  Creating a table for the $\hat{c}_{ij}$:s, these must be 0 where $x_{ij}$ is not. For these positions, it must then hold that $c_{ij} = v_i + w_j$ (as can be seen from equation (\ref{eq24})). Solving this equation system, the rest of the reduced costs can be calculated. The reduced costs should then be interpreted as the change in the total cost that we are optimizing for if one more unit is transported along that route; thus, finding a negative reduced cost means that the solution to the transport problem can be improved. Repeating this procedure until no more negative reduced costs are found, the optimal solution to the problem has then been found and can be returned as the answer.
+  Creating a table for the $\hat{c}_{ij}$:s, these must be 0 where $x_{ij}$ is not. For these positions, it must then hold that $c_{ij} = v_i + w_j$ (as can be seen from equation (\ref{eq24})). Solving this equation system, the rest of the reduced costs can be calculated. The reduced costs should then be interpreted as the change in the total cost that we are optimizing for if one more unit is transported along that route; thus, finding a negative reduced cost means that the solution to the transport problem can be improved, and it also tells along which route the transport can be increased to improve the solution. Increasing the transport along this route as much as possible, while decreasing the transport along some other route where the reduced cost is 0 and also possible to balance the supply and demand, a better solution will be found than the previous one.
+
+  Repeating this procedure until no more negative reduced costs are found, the optimal solution to the problem has then been found and can now be returned as the answer.
 
   \section*{Exercise 3}
   Solving the two problems listed under the section ``Exercise 1'' above using the routine \texttt{transport.m} that was developed for laboratory exercise 2, the respective solutions are:
