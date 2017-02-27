@@ -228,13 +228,13 @@
 
   \noindent
   The transportation algorithm starts by finding a feasible solution to the
-  problem by some method. One is for example the \textit{Minimum cell cost}
-  method, which is a greedy algorithm occupying the transport routes that are
-  the cheapest for each row in the cost matrix and meeting the respective
-  supply and demand, starting with the first row and then doing the same for
-  each consecutive row. The rest of the routes are set to 0.
-  To find an improvement to this starting solution (or verifying that it is the
-  optimal solution), one then defines the reduced costs as
+  problem by some method, for example the \textit{Minimum cell cost}
+  method. This is a greedy algorithm occupying the
+  transport routes that are the cheapest for each row in the cost matrix and
+  meeting the respective supply and demand, starting with the first row and
+  then doing the same for each consecutive row. The rest of the routes are set
+  to 0.  To find an improvement to this starting solution (or verifying that it
+  is the optimal solution), one then defines the reduced costs as
   \begin{equation}
     \hat{c}_{ij} = c_{ij} - v_i - w_j
     \label{eq24}
