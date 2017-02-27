@@ -10,7 +10,7 @@
 \definecolor{mylilas}{RGB}{170,55,241}
 
 \lstset{language=Matlab,%
-    basicstyle=\footnotesize\ttfamily,
+    basicstyle=\footnotesize\ttfamily
     breaklines=false,%
     morekeywords={matlab2tikz},
     keywordstyle=\color{blue},%
@@ -67,7 +67,7 @@
       11 & * & 8 & 8 \\
       7  & 5 & 6 & 12 \\
       7  & 6 & 8 & 5
-    \end{pmatrix},
+    \end{pmatrix}
     \label{eq5}
   \end{equation}
   where $*$ signifies that supplier 1 cannot deliver to location 2. In
@@ -86,7 +86,7 @@
     \mathbf{d} =
     \begin{pmatrix}
       50k & 40k & 90k & 70k
-    \end{pmatrix}^T,
+    \end{pmatrix}^T
     \label{eq7}
   \end{equation}
   with $k = 10^3$ as above. It is obvious that the supply does not equal the
@@ -101,7 +101,7 @@
       11 & * & 8 & 8  & 0\\
       7  & 5 & 6 & 12 & 0\\
       7  & 6 & 8 & 5  & 0
-    \end{pmatrix},
+    \end{pmatrix}
     \label{eq8}
   \end{equation}
   as well as the demand vector in equation (\ref{eq7}) changing to
@@ -109,7 +109,7 @@
     \mathbf{d} =
     \begin{pmatrix}
       50k & 40k & 90k & 70k & 30k
-    \end{pmatrix}^T,
+    \end{pmatrix}^T
     \label{eq9}
   \end{equation}
 
@@ -153,7 +153,7 @@
       11 & * & 8 & 8  & *  & 0\\
       7  & 5 & 6 & 12 & 12 & 0\\
       7  & 6 & 8 & 5  & 5  & 0
-    \end{pmatrix},
+    \end{pmatrix}
     \label{eq14}
   \end{equation}
   \begin{equation}
@@ -168,7 +168,7 @@
     \mathbf{s} =
     \begin{pmatrix}
       100k & 120k & 60k
-    \end{pmatrix}^T.
+    \end{pmatrix}^T
     \label{eq16}
   \end{equation}
 
@@ -201,7 +201,7 @@
       11 & * & 8 & 8  & 5  & 0\\
       7  & 5 & 6 & *  & 12 & 0\\
       7  & 6 & 8 & *  & 5  & 0
-    \end{pmatrix},
+    \end{pmatrix}
     \label{eq21}
   \end{equation}
   \begin{equation}
@@ -216,7 +216,7 @@
     \mathbf{s} =
     \begin{pmatrix}
       100k & 120k & 60k
-    \end{pmatrix}^T.
+    \end{pmatrix}^T
     \label{eq23}
   \end{equation}
 
@@ -235,7 +235,7 @@
   To find an improvement to this starting solution (or verifying that it is the
   optimal solution), one then defines the reduced costs as
   \begin{equation}
-    \hat{c}_{ij} = c_{ij} - v_i - w_j,
+    \hat{c}_{ij} = c_{ij} - v_i - w_j
     \label{eq24}
   \end{equation}
   where $\hat{c}_{ij}$ would appear as slack variables when solving the dual
@@ -243,7 +243,7 @@
   Complementary slackness can now be used, which states that for an optimal
   solution it must hold that
   \begin{equation}
-    \hat{c}_{ij}x_{ij} = 0 \Rightarrow \text{if } x_{ij} \neq 0 \text{ then } \hat{c}_{ij} = 0.
+    \hat{c}_{ij}x_{ij} = 0 \Rightarrow \text{if } x_{ij} \neq 0 \text{ then } \hat{c}_{ij} = 0
   \end{equation}
   Creating a table for the $\hat{c}_{ij}$:s, these must be 0 where $x_{ij}$ is
   not. For these positions, it must then hold that $c_{ij} = v_i + w_j$ (as can
