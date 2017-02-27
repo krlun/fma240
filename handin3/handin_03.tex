@@ -100,12 +100,12 @@
     \mathbf{d} =
     \begin{pmatrix}
       50k & 40k & 90k & 70k & 30k
-    \end{pmatrix}^T,
+    \end{pmatrix}^T.
     \label{eq9}
-  \end{equation}.
+  \end{equation}
 
   \noindent
-  To make sure that nothing gets delivered to location 2 from supplier 1, the constraints in equation (\ref{eq4}) must be modified such that for $x_{12}$ it must be that $x_{12} = 0$. The discount in turn can handled by dividing the problem in two cases: either location 4 buys 0 to 20k units from supplier 1 or more than 20k units from supplier 1. To mathematically formulate optimization problems for these two cases, location 4 is divided into two locations, 4a and 4b. In case 1, location 4b cannot buy from supplier 1, in case 2 location 4a cannot buy from supplier 2 and 3. The best solution for either of these two cases is then accepted as the answer to the original problem. To formulate this more mathematically, we thus have, for case 1:
+  To make sure that nothing gets delivered to location 2 from supplier 1, the constraints in equation (\ref{eq4}) must be modified such that for $x_{12}$ it must be that $x_{12} = 0$. The discount in turn can handled by partitioning the problem in two mutually exclusive cases: either location 4 buys 0 to 20k units from supplier 1 or more than 20k units from supplier 1. To mathematically formulate optimization problems for these two cases, location 4 is divided into two locations, 4a and 4b. In case 1, location 4b cannot buy from supplier 1, in case 2 location 4a cannot buy from supplier 2 and 3. The best solution for either of these two cases is then accepted as the answer to the original problem. To formulate this more mathematically, we thus have, for case 1:
  % m = 3
  % n = 6
   \begin{align*}
@@ -125,7 +125,7 @@
     \label{eq12}
   \end{equation}
   \begin{equation}
-    x_{ij} \geq 0, i = 1, 2, 3, j = 1, 2, ..., 6, x_{12} = 0 x_{15} = 0.
+    x_{ij} \geq 0, i = 1, 2, 3, j = 1, 2, ..., 6, x_{12} = 0 x_{15} = 0,
     \label{eq13}
   \end{equation}
   with
@@ -173,7 +173,7 @@
     \label{eq19}
   \end{equation}
   \begin{equation}
-    x_{ij} \geq 0, i = 1, 2, 3, j = 1, 2, ..., 6, x_{12} = 0, x_{24} = 0, x_{34} = 0.
+    x_{ij} \geq 0, i = 1, 2, 3, j = 1, 2, ..., 6, x_{12} = 0, x_{24} = 0, x_{34} = 0,
     \label{eq20}
   \end{equation}
   with
